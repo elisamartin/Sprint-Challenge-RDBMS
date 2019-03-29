@@ -56,7 +56,7 @@ server.post('/api/actions', async (req, res) => {
 	}
 });
 
-// Stretch
+// Stretch - Projects endpoints
 // GET Projects
 server.get('/api/projects', (req, res) => {
 	return db('project')
@@ -68,24 +68,13 @@ server.get('/api/projects', (req, res) => {
 		});
 });
 
-// GET Actions
-server.get('/api/actions', (req, res) => {
-	return db('action')
-		.then((acts) => {
-			res.status(200).json(acts);
-		})
-		.catch((err) => {
-			res.status(500).json(err);
-		});
-});
-
 // PUT Project
 server.put('/api/projects/:id', async (req, res) => {
 	try {
 		const count = await db('project').where({ id: req.params.id }).update(req.body);
 		if (count > 0) {
-			const role = await db('project').where({ id: req.params.id }).first();
-			res.status(200).json(role);
+			const project = await db('project').where({ id: req.params.id }).first();
+			res.status(200).json(project);
 		} else {
 			res.status(404).json({ message: 'Records not found' });
 		}
@@ -100,6 +89,47 @@ server.delete('/api/projects/:id', async (req, res) => {
 		const count = await db('project').where({ id: req.params.id }).del();
 		if (count > 0) {
 			res.status(204).json('Deleted!');
+		} else {
+			res.status(404).json({ message: 'Records not found' });
+		}
+	} catch (err) {
+		res.status(500).json({ error: 'Something went wrong.' });
+	}
+});
+
+// Actions endpoints
+// GET Actions
+server.get('/api/actions', (req, res) => {
+	return db('action')
+		.then((acts) => {
+			res.status(200).json(acts);
+		})
+		.catch((err) => {
+			res.status(500).json(err);
+		});
+});
+
+// PUT Action
+server.put('/api/actions/:id', async (req, res) => {
+	try {
+		const count = await db('action').where({ id: req.params.id }).update(req.body);
+		if (count > 0) {
+			const action = await db('action').where({ id: req.params.id }).first();
+			res.status(200).json(action);
+		} else {
+			res.status(404).json({ message: 'Records not found' });
+		}
+	} catch (err) {
+		res.status(500).json({ error: 'Something went wrong.' });
+	}
+});
+
+// DELETE Action
+server.delete('/api/actions/:id', async (req, res) => {
+	try {
+		const count = await db('action').where({ id: req.params.id }).del();
+		if (count > 0) {
+			res.status(204).json('Deleted');
 		} else {
 			res.status(404).json({ message: 'Records not found' });
 		}
