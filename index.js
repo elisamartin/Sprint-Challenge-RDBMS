@@ -56,5 +56,57 @@ server.post('/api/actions', async (req, res) => {
 	}
 });
 
+// Stretch
+// GET Projects
+server.get('/api/projects', (req, res) => {
+	return db('project')
+		.then((projects) => {
+			res.status(200).json(projects);
+		})
+		.catch((err) => {
+			res.status(500).json(err);
+		});
+});
+
+// GET Actions
+server.get('/api/actions', (req, res) => {
+	return db('action')
+		.then((acts) => {
+			res.status(200).json(acts);
+		})
+		.catch((err) => {
+			res.status(500).json(err);
+		});
+});
+
+// PUT Project
+server.put('/api/projects/:id', async (req, res) => {
+	try {
+		const count = await db('project').where({ id: req.params.id }).update(req.body);
+		if (count > 0) {
+			const role = await db('project').where({ id: req.params.id }).first();
+			res.status(200).json(role);
+		} else {
+			res.status(404).json({ message: 'Records not found' });
+		}
+	} catch (err) {
+		res.status(500).json({ error: 'Something went wrong.' });
+	}
+});
+
+// DELETE Project
+server.delete('/api/projects/:id', async (req, res) => {
+	try {
+		const count = await db('project').where({ id: req.params.id }).del();
+		if (count > 0) {
+			res.status(204).json('Deleted!');
+		} else {
+			res.status(404).json({ message: 'Records not found' });
+		}
+	} catch (err) {
+		res.status(500).json({ error: 'Something went wrong.' });
+	}
+});
+
 const port = process.env.PORT || 4444;
 server.listen(port, () => console.log(`\n === Running on ${port} === \n`));
