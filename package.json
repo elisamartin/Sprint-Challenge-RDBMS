@@ -1,0 +1,27 @@
+{
+	"dependencies": {
+		"express": "^4.16.4",
+		"knex": "^0.16.3",
+		"nodemon": "^1.18.10",
+		"sqlite3": "^4.0.6"
+	},
+	"name": "Sprint-Challenge-RDBMS",
+	"description": "This challenge allows you to practice the concepts and techniques learned over the past Sprint and apply them in a concrete project.",
+	"version": "1.0.0",
+	"main": "index.js",
+	"devDependencies": {},
+	"scripts": {
+		"server": "nodemon"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/elisamartin/Sprint-Challenge-RDBMS.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/elisamartin/Sprint-Challenge-RDBMS/issues"
+	},
+	"homepage": "https://github.com/elisamartin/Sprint-Challenge-RDBMS#readme"
+}
